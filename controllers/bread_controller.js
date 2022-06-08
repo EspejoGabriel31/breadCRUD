@@ -19,10 +19,16 @@ breads.get('/new', (req, res) => {
 
 // EDIT
 breads.get('/:indexArray/edit', (req, res) => {
-  res.render('edit', {
-    bread: Bread[req.params.indexArray],
-    index: req.params.indexArray
-  })
+  // res.render('edit', {
+  //   bread: Bread[req.params.indexArray],
+  //   index: req.params.indexArray
+  // })
+  Bread.findById(req.params.indexArray)
+    .then(foundBread => {
+      res.render('edit', {
+        bread: foundBread
+      })
+    })
 })
 
 // SHOW
@@ -33,17 +39,6 @@ breads.get('/:id', (req, res) => {
         bread: foundBread
       })
     })
-  // if (Bread[req.params.arrayIndex]) {
-  //   res.render('Show', {
-  //     bread: Bread[req.params.arrayIndex],
-  //     index: req.params.arrayIndex,
-  //   })
-  // } 
-  // else {
-  //   res.render('404', {
-  //     arrayIndex: req.params.arrayIndex
-  //   })
-  // }
 })
 
 // CREATE
@@ -64,8 +59,12 @@ breads.post('/', (req, res) => {
 
 // DELETE
 breads.delete('/:indexArray', (req, res) => {
-  Bread.splice(req.params.indexArray, 1)
-  res.status(303).redirect('/breads')
+  // Bread.splice(req.params.indexArray, 1)
+  Bread.findOneAndDelete(req.params.indexArray)
+  .then(deletedBread => {
+    res.status(303).redirect('/breads')
+  })
+  //res.status(303).redirect('/breads')
 })
 
 // UPDATE
@@ -75,8 +74,13 @@ breads.put('/:arrayIndex', (req, res) => {
   } else {
     req.body.hasGluten = false
   }
-  Bread[req.params.arrayIndex] = req.body
-  res.redirect(`/breads/${req.params.arrayIndex}`)
+  // Bread[req.params.arrayIndex] = req.body
+  Bread.findByIdAndUpdate(req.params.arrayIndex, req.body, {new: true})
+  .then(updatedBread => {
+    console.log(updatedBread)
+    res.redirect(`/breads/${req.params.arrayIndex}`)
+  })
+  // res.redirect(`/breads/${req.params.arrayIndex}`)
 })
 
 
