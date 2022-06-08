@@ -12,7 +12,6 @@ function Index({ breads }) {
   return (
     <Default>
       <h2>Index Page For the bread</h2>
-      {/* <p>I have {breads[0].name} bread! </p> */}
       <ul>
         {breads.map((bread, index) => {
           console.log(bread.name);
@@ -20,6 +19,7 @@ function Index({ breads }) {
           return (
             <li key={index}>
               <a href={`/breads/${bread.id}`}>{bread.name}</a>
+              <p>{bread.getBakedBy()}</p>
             </li>
           );
         })}
