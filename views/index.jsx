@@ -1,7 +1,8 @@
 const React = require("react");
+const baker_seed = require("../models/baker_seed");
 const Default = require("./layouts/Default");
 
-function Index({ breads }) {
+function Index({ breads, bakers, title }) {
   //   console.log("--------------------");
   //   // FOCUS HERE
   //   console.log(breads[0].name);
@@ -12,6 +13,19 @@ function Index({ breads }) {
   return (
     <Default>
       <h2>Index Page For the bread</h2>
+      <h3>Bakers</h3>
+      <ul>
+        {
+          bakers.map((baker) => {
+            return(
+              <li key={baker.id}>
+                <a href={`/bakers/${baker.id}`}>{baker.name}</a>
+              </li>
+            )
+          })
+        }
+      </ul>
+      <h3>Breads</h3>
       <ul>
         {breads.map((bread, index) => {
           console.log(bread.name);
