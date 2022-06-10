@@ -19,7 +19,7 @@ function Index({ breads }) {
           return (
             <li key={index}>
               <a href={`/breads/${bread.id}`}>{bread.name}</a>
-              <p>{bread.getBakedBy()}</p>
+              {/* <p>{bread.getBakedBy()}</p> */}
             </li>
           );
         })}
