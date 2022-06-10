@@ -23,4 +23,4 @@ function Show({baker}){
     )
 }
 
-module.export = Show
+module.exports = Show
