@@ -16,12 +16,15 @@ baker.get('/', (req,res) => {
 //SHOW
 baker.get('/:id', (req, res) => {
     Baker.findById(req.params.id)
-        .populate('breads')
-        .then(foundBaker => {
-            res.render('bakerShow', {
-                baker: foundBaker
-            })
+    .populate({
+        path: 'breads',
+        options: {limit: 5}
+    })
+    .then(foundBaker => {
+        res.render('bakerShow', {
+            baker: foundBaker
         })
+    })
 })
 
 //DELETE
